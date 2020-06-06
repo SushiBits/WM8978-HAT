@@ -16,6 +16,9 @@ all: eep
 eep: $(EEP)
 dtbo: $(DTBO)
 
+%.eep: %.cfg %.dtbo
+	eepmake $< $@ $(patsubst %.cfg,%.dtbo,$<)
+
 %.dtbo: %.dts $(DTSI) $(HEADERS)
 	dtc -@ -I dts -O dtb -o $@ $<
 
